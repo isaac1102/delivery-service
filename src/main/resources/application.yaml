@@ -1,6 +1,15 @@
-spring.datasource.url=jdbc:mysql://localhost:3306/mysql
-spring.datasource.username=root
-spring.datasource.password=ps
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.show-sql=true
-spring.jpa.hibernate.ddl-auto=update
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysql
+    username: root
+    password: ps
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  secret:
+    barogo.example.euijin
