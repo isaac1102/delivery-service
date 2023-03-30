@@ -1,18 +1,20 @@
-package com.example.delivery.request;
+package com.brg.delivery.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class SignUpRequest {
     private static final String PASSWORD_REGEX =
-            "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{12,}$";
+            "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]).{12,}$";
 
     @NotBlank(message = "id는 필수값입니다.")
     @Size(min = 5, max = 20, message = "id의 길이는 최소 5글자, 최대 20글자로 입력해 주세요.")
-    private String id;
+    private String userId;
 
     @NotBlank(message = "비밀번호는 필수값입니다.")
     @Pattern(regexp = PASSWORD_REGEX,
@@ -22,11 +24,4 @@ public class SignUpRequest {
     @NotBlank(message = "이름은 필수값입니다.")
     @Size(min = 2, max = 15, message = "이름의 길이는 최소 2글자, 최대 15글자로 입력해 주세요.")
     private String name;
-
-    public SignUpRequest(String id, String password, String name){
-        this.id = id;
-        this.password = password;
-        this.name = name;
-    }
-
 }
