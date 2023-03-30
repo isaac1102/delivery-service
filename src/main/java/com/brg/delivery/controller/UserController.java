@@ -1,7 +1,8 @@
-package com.example.delivery.controller;
+package com.brg.delivery.controller;
 
-import com.example.delivery.request.SignUpRequest;
-import com.example.delivery.service.UserService;
+import com.brg.delivery.domain.dto.LoginRequest;
+import com.brg.delivery.domain.dto.SignUpRequest;
+import com.brg.delivery.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -21,5 +22,10 @@ public class UserController {
     public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest request) {
         userService.createUser(request);
         return ResponseEntity.ok("회원 가입이 완료되었습니다.");
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid @RequestBody LoginRequest loginRequest){
+        return userService.login(loginRequest);
     }
 }
