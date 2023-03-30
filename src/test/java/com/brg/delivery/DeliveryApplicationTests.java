@@ -1,4 +1,4 @@
-package com.example.delivery;
+package com.brg.delivery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
