@@ -1,9 +1,12 @@
-package com.example.delivery.repository;
+package com.brg.delivery.repository;
 
-import com.example.delivery.model.User;
+import com.brg.delivery.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+    Optional<User> findByUserId(String userId);
 }
