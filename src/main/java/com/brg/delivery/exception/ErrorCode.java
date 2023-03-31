@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    ALREADY_EXISTING_ACCOUNT(HttpStatus.CONFLICT, "");
+    ALREADY_EXISTING_ACCOUNT(HttpStatus.CONFLICT, ""),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
+    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "");
 
-    private HttpStatus status;
-    private String message;
+    private final HttpStatus status;
+    private final String message;
 }
 
