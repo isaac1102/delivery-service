@@ -20,12 +20,14 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest request) {
-        userService.createUser(request);
+        userService.createUser(request.getUserId(), request.getPassword(), request.getName());
         return ResponseEntity.ok("회원 가입이 완료되었습니다.");
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody LoginRequest loginRequest){
-        return userService.login(loginRequest);
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest loginRequest){
+        String token = userService.login(loginRequest.getUserId(), loginRequest.getPassword());
+        return ResponseEntity.ok().body(token);
+
     }
 }
