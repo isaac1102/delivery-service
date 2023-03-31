@@ -1,14 +1,15 @@
-package com.brg.delivery.controller;
+package com.example.brg.controller;
 
-import com.brg.delivery.config.SecurityConfig;
-import com.brg.delivery.domain.dto.LoginRequest;
-import com.brg.delivery.domain.dto.SignUpRequest;
-import com.brg.delivery.exception.AppException;
-import com.brg.delivery.exception.ErrorCode;
-import com.brg.delivery.service.UserService;
+import com.example.brg.config.SecurityConfig;
+import com.example.brg.domain.user.request.LoginRequest;
+import com.example.brg.domain.user.request.SignUpRequest;
+import com.example.brg.domain.user.exception.UserException;
+import com.example.brg.domain.user.exception.UserErrorCode;
+import com.example.brg.domain.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -62,7 +62,7 @@ class UserControllerTest {
         String password = "ajajajajajA.1";
         String userName = "user name";
 
-        doThrow(new AppException(ErrorCode.ALREADY_EXISTING_ACCOUNT, "")).when(userService).createUser(any(), any(), any());
+        Mockito.doThrow(new UserException(UserErrorCode.ALREADY_EXISTING_ACCOUNT, "")).when(userService).createUser(any(), any(), any());
 
         mockMvc.perform(post("/api/v1/users/signup")
                         .with(csrf())
@@ -90,7 +90,7 @@ class UserControllerTest {
     @DisplayName("로그인 실패")
     @WithMockUser
     void login_fail() throws Exception {
-        when(userService.login("aa", "bb")).thenThrow(new AppException(ErrorCode.INVALID_PASSWORD, ""));
+        when(userService.login("aa", "bb")).thenThrow(new UserException(UserErrorCode.INVALID_PASSWORD, ""));
 
         mockMvc.perform(post("/api/v1/users/login")
                         .with(csrf())
