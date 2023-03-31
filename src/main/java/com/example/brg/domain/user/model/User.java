@@ -1,20 +1,19 @@
-package com.brg.delivery.domain;
+package com.example.brg.domain.user.model;
 
-import com.brg.delivery.domain.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_test")
 @Setter
 @Getter
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long seq;
 
     @Column(name = "userId")
     private String userId;
