@@ -7,9 +7,7 @@ spring:
 
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: update
 
 jwt:
-  secret:
-    barogo.example.euijin
+  secret: secret.key
+
