@@ -1,4 +1,4 @@
-package com.brg.delivery.domain.dto;
+package com.example.brg.domain.user.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

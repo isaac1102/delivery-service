@@ -1,8 +1,8 @@
-package com.brg.delivery.controller;
+package com.example.brg.domain.user.controller;
 
-import com.brg.delivery.domain.dto.LoginRequest;
-import com.brg.delivery.domain.dto.SignUpRequest;
-import com.brg.delivery.service.UserService;
+import com.example.brg.domain.user.request.LoginRequest;
+import com.example.brg.domain.user.request.SignUpRequest;
+import com.example.brg.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +28,5 @@ public class UserController {
     public ResponseEntity<String> login(@Valid @RequestBody LoginRequest loginRequest){
         String token = userService.login(loginRequest.getUserId(), loginRequest.getPassword());
         return ResponseEntity.ok().body(token);
-
     }
 }

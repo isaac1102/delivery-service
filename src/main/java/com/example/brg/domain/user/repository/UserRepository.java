@@ -1,6 +1,6 @@
-package com.brg.delivery.repository;
+package com.example.brg.domain.user.repository;
 
-import com.brg.delivery.domain.User;
+import com.example.brg.domain.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

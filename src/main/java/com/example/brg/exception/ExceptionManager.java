@@ -1,6 +1,7 @@
-package com.brg.delivery.exception;
+package com.example.brg.exception;
 
-import org.springframework.dao.DuplicateKeyException;
+import com.example.brg.domain.delivery.exception.DeliveryException;
+import com.example.brg.domain.user.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,8 +15,13 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ExceptionManager {
-    @ExceptionHandler(AppException.class)
-    public ResponseEntity<?> appException(AppException ex){
+    @ExceptionHandler(DeliveryException.class)
+    public ResponseEntity<?> deliveryException(DeliveryException ex){
+        return ResponseEntity.status(ex.getErrorCode().getStatus()).body(ex.getMeesage());
+    }
+
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<?> userException(UserException ex){
         return ResponseEntity.status(ex.getErrorCode().getStatus()).body(ex.getMeesage());
     }
 

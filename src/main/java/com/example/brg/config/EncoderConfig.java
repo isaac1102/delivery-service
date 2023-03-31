@@ -1,4 +1,4 @@
-package com.brg.delivery.config;
+package com.example.brg.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

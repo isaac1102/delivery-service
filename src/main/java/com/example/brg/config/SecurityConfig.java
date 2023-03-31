@@ -1,8 +1,9 @@
-package com.brg.delivery.config;
+package com.example.brg.config;
 
-import com.brg.delivery.service.UserService;
+import com.example.brg.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,8 +18,9 @@ public class SecurityConfig {
     private final UserService userService;
 
     @Value("${jwt.secret}")
-    private final String secretKey;
+    private String secretKey;
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .httpBasic().disable()
@@ -26,7 +28,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/users/signup", "/api/v1/users/login").permitAll()
-                .requestMatchers("/api/v1/delivery").authenticated()
+                .requestMatchers("/api/v1/delivery/**").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

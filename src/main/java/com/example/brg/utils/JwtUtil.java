@@ -1,4 +1,4 @@
-package com.brg.delivery.utils;
+package com.example.brg.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

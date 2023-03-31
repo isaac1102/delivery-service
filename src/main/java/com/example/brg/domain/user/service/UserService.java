@@ -1,10 +1,10 @@
-package com.brg.delivery.service;
+package com.example.brg.domain.user.service;
 
-import com.brg.delivery.domain.User;
-import com.brg.delivery.exception.AppException;
-import com.brg.delivery.exception.ErrorCode;
-import com.brg.delivery.repository.UserRepository;
-import com.brg.delivery.utils.JwtUtil;
+import com.example.brg.domain.user.model.User;
+import com.example.brg.domain.user.exception.UserException;
+import com.example.brg.domain.user.exception.UserErrorCode;
+import com.example.brg.domain.user.repository.UserRepository;
+import com.example.brg.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,7 +23,8 @@ public class UserService {
         User user = new User(userId, encoder.encode(password), name);
 
         userRepository.findByUserId(user.getUserId()).ifPresent(found -> {
-            throw new AppException(ErrorCode.ALREADY_EXISTING_ACCOUNT, "이미 존재하는 계정입니다.");
+            throw new UserException(UserErrorCode.ALREADY_EXISTING_ACCOUNT,
+                    UserErrorCode.ALREADY_EXISTING_ACCOUNT.getMessage());
         });
 
         userRepository.save(user);
@@ -31,10 +32,12 @@ public class UserService {
 
     public String login(String userId, String password) {
         User foundUser = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND, "계정을 찾을 수 없습니다."));
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND,
+                        UserErrorCode.USER_NOT_FOUND.getMessage()));
 
         if (!encoder.matches(password, foundUser.getPassword())) {
-            throw new AppException(ErrorCode.INVALID_PASSWORD, "비밀번호가 일치하지 않습니다.");
+            throw new UserException(UserErrorCode.INVALID_PASSWORD,
+                    UserErrorCode.INVALID_PASSWORD.getMessage());
         }
 
         return JwtUtil.createToken(foundUser.getUserId(), key, expiredTimeMs);
