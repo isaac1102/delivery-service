@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+
     @Value("${jwt.secret}")
     private String key;
-    private final Long expiredTimeMs = 1000 * 60 * 60L;
 
     public void createUser(String userId, String password, String name) {
         User user = new User(userId, encoder.encode(password), name);
@@ -40,6 +40,6 @@ public class UserService {
                     UserErrorCode.INVALID_PASSWORD.getMessage());
         }
 
-        return JwtUtil.createToken(foundUser.getUserId(), key, expiredTimeMs);
+        return JwtUtil.createToken(foundUser.getUserId(), key, JwtUtil.expiredTimeMs);
     }
 }
