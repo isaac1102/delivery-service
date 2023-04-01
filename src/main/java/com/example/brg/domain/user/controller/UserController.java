@@ -1,7 +1,7 @@
 package com.example.brg.domain.user.controller;
 
-import com.example.brg.domain.user.request.LoginRequest;
-import com.example.brg.domain.user.request.SignUpRequest;
+import com.example.brg.domain.user.controller.request.LoginRequest;
+import com.example.brg.domain.user.controller.request.SignUpRequest;
 import com.example.brg.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
     @PostMapping("/signup")

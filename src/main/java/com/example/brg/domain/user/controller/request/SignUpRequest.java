@@ -1,4 +1,4 @@
-package com.example.brg.domain.user.request;
+package com.example.brg.domain.user.controller.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
