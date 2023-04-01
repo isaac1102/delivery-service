@@ -5,7 +5,7 @@ import com.example.brg.domain.delivery.exception.DeliveryException;
 import com.example.brg.domain.delivery.model.Delivery;
 import com.example.brg.domain.delivery.status.DeliveryStatus;
 import com.example.brg.domain.user.model.User;
-import com.example.brg.domain.delivery.response.DeliveryResponse;
+import com.example.brg.domain.delivery.controller.response.DeliveryResponse;
 import com.example.brg.domain.user.exception.UserException;
 import com.example.brg.domain.user.exception.UserErrorCode;
 import com.example.brg.domain.delivery.repository.DeliveryRepository;
@@ -28,7 +28,8 @@ public class DeliveryService {
                                         UserErrorCode.USER_NOT_FOUND,
                                         UserErrorCode.USER_NOT_FOUND.getMessage()));
 
-        List<Delivery> deliveries = deliveryRepository.findAllByUserAndOrderDateBetween(user, startDate, endDate);
+        List<Delivery> deliveries =
+                deliveryRepository.findAllByUserAndOrderDateBetween(user, startDate, endDate);
 
         return deliveries.stream().map(delivery -> DeliveryResponse.builder()
                 .userId(delivery.getUser().getUserId())
