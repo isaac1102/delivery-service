@@ -1,4 +1,4 @@
-package com.example.brg.domain.delivery.request;
+package com.example.brg.domain.delivery.controller.request;
 
 import com.example.brg.domain.delivery.exception.DeliveryErrorCode;
 import com.example.brg.domain.delivery.exception.DeliveryException;

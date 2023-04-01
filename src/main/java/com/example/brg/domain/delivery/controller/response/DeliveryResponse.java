@@ -1,4 +1,4 @@
-package com.example.brg.domain.delivery.response;
+package com.example.brg.domain.delivery.controller.response;
 
 import com.example.brg.domain.delivery.status.DeliveryStatus;
 import lombok.Builder;
