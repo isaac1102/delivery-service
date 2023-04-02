@@ -31,6 +31,14 @@ public class JwtFilter extends OncePerRequestFilter {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorization : {}", authorization);
 
+        /*
+            SecurityFilterChain에서 permitAll로 인해 필터우회를 하려고 했지만,
+            예상처럼 잘 되지 않았기 때문에 임시적으로 이렇게 처리하였습니다...
+        */
+        if (request.getRequestURI().startsWith("/api/v1/users")) {
+            filterChain.doFilter(request, response);
+        }
+
         if (authorization == null || !authorization.startsWith("Bearer")) {
             throw new RuntimeException("authorization is null이거나 잘못되었습니다.");
         }
