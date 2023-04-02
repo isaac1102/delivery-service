@@ -24,7 +24,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private final String secretKey;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorization : {}", authorization);
 
@@ -41,7 +44,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String userId = JwtUtil.getUserId(token, secretKey);
         log.info("userId : {}", userId);
-
 
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
