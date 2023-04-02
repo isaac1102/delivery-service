@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import java.time.LocalDateTime;
 
 @Entity
@@ -44,6 +45,14 @@ public class Delivery {
     }
 
     public void updateDestination(String destination) {
+        if (Strings.isBlank(destination)) {
+            throw new RuntimeException("주소값이 비어있습니다. ");
+        }
+
+        if (destination.length() >= 2000) {
+            throw new RuntimeException("주소의 길이가 너무 깁니다.");
+        }
+
         this.destination = destination;
     }
 }
