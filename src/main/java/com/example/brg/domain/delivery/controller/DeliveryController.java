@@ -2,6 +2,8 @@ package com.example.brg.domain.delivery.controller;
 
 import com.example.brg.domain.delivery.controller.request.DeliveryRequest;
 import com.example.brg.domain.delivery.controller.response.DeliveryResponse;
+import com.example.brg.domain.delivery.exception.DeliveryErrorCode;
+import com.example.brg.domain.delivery.exception.DeliveryException;
 import com.example.brg.domain.delivery.service.DeliveryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,6 +25,16 @@ public class DeliveryController {
             Authentication authentication,
             @RequestBody DeliveryRequest deliveryRequest
     ){
+        if (deliveryRequest.getEndDate().isBefore(deliveryRequest.getStartDate())) {
+            throw new DeliveryException(DeliveryErrorCode.INVALID_DATE_RANGE,
+                    DeliveryErrorCode.INVALID_DATE_RANGE.getMessage());
+        }
+
+        if (deliveryRequest.getStartDate().plusDays(3).isBefore(deliveryRequest.getEndDate())) {
+            throw new DeliveryException(DeliveryErrorCode.EXEED_MAX_DATE_RANGE,
+                    DeliveryErrorCode.EXEED_MAX_DATE_RANGE.getMessage());
+        }
+
         List<DeliveryResponse> deliveries =
                 deliveryService.getDeliveries(
                         authentication.getName(),
